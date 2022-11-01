@@ -2,7 +2,7 @@
 name = "tokemak-quant-project"
 version = "0.1.0"
 description = ""
-authors = [""]
+authors = ["Parker Burchett"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
