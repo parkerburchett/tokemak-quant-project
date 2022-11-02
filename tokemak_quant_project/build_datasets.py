@@ -2,16 +2,20 @@
 Script to build the datasets to use later for analysis
 
 """
-from constants import pool_addresses
-from fetch_token_details import build_token_df
-from block_to_time_stamp import build_timestamp_df
-import pandas as pd
-from fetch_dataframes import build_eth_price_df, build_historical_dfs, build_il_df, build_price_df
 from datetime import datetime
 
-def main(n_days=15):
+import pandas as pd
+
+from block_to_time_stamp import build_timestamp_df
+from constants import pool_addresses
+from fetch_dataframes import (build_eth_price_df, build_historical_dfs,
+                              build_il_df, build_price_df)
+from fetch_token_details import build_token_df
+
+
+def main(n_days=360):
     # build token_df
-    start =  datetime.now()
+    start = datetime.now()
     print('start', start)
     token_df = build_token_df(pool_addresses)
     token_df.to_csv('tokemak_quant_project/data/token_df.csv', index=False)
