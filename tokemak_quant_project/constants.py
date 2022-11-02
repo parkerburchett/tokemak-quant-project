@@ -1,6 +1,3 @@
-"""
-Holds some global constants
-"""
 import os
 
 import web3
@@ -25,6 +22,7 @@ pool_addresses = [
     "0x61eB53ee427aB4E007d78A9134AaCb3101A2DC23",
     "0x54138c3d494ec7edE33ed08EE6e0f7BC6149e2fC"
 ]
+
 pool_addresses = [web3.Web3.toChecksumAddress(p) for p in pool_addresses]
 
 USDC = web3.Web3.toChecksumAddress('0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48')

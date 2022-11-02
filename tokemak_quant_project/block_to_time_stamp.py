@@ -1,20 +1,21 @@
 """
-Use Binary serach to map timestamps to block numbers
+Use binary search to map timestamps to block numbers
 """
 
 import datetime
 import time
-import web3
 import pandas as pd
 
-def estimate_block_height_by_timestamp(desired_timestamp: int, w3: web3.main.Web3, close_in_seconds:int = 60 ):
+from constants import latest_block, w3
+
+def estimate_block_height_by_timestamp(desired_timestamp: int, close_in_seconds:int = 60 ):
     """
     Get the block nearest to timestamp with in close_in_seconds using binary search
     """
     # adapted from https://ethereum.stackexchange.com/questions/62007/how-to-get-the-blocks-between-timestamp
     block_found = False
     #max_block = w3.eth.block_number
-    max_block = 15876780 # hard coded for reproducibility 
+    max_block = latest_block # hard coded for reproducibility 
     min_block = 0
     
     while not block_found:
@@ -49,12 +50,11 @@ def get_timestamps_for_the_previous_N_days(N_days: int=180) -> list[int]:
     return timestamps
 
 
-def build_timestamp_df(N_days: int, w3: web3.main.Web3) -> pd.DataFrame:
+def build_timestamp_df(n_days: int) -> pd.DataFrame:
     """
     Build a dataframe of with columns timestamp, block_number for each timestamp in of the previous N days
     """
-    timestamps = get_timestamps_for_the_previous_N_days(N_days)
-    block_timestamps = [{'timestamp': t, 'block_number': estimate_block_height_by_timestamp(t, w3)} for t in timestamps]
+    timestamps = get_timestamps_for_the_previous_N_days(n_days)
+    block_timestamps = [{'timestamp': t, 'block_number': estimate_block_height_by_timestamp(t)} for t in timestamps]
     return pd.DataFrame.from_records(block_timestamps)
 
-#time_stamp_df = build_timestamp_df(180, w3) # takes 8 minutes

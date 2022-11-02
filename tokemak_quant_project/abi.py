@@ -1,3 +1,7 @@
+"""
+Holds ABIs for smart contracts
+"""
+
 # copied from https://github.com/BowTiedDevil/degenbot/blob/main/abi/abi.py
 
 import json

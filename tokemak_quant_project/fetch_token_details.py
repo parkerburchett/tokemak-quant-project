@@ -1,5 +1,5 @@
 """
-Holds logic to fetch on-chain data about  pools
+Holds logic to fetch on-chain data about the tokens in the pools
 """
 
 import pandas as pd
@@ -41,7 +41,7 @@ def _get_token_details(asset_tokens: set[str]) -> pd.DataFrame:
     for token_address in asset_tokens:
         erc20_token_contract = w3.eth.contract(token_address, abi=ERC20)
         details = {
-            'address': token_address, 
+            'address': erc20_token_contract.address, 
             'decimals': erc20_token_contract.functions.decimals().call(),
             'symbol': erc20_token_contract.functions.symbol().call()
         }
