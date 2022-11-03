@@ -30,7 +30,7 @@ def build_token_price_and_reserves_by_block_df(pool: Pool, timestamp_df: pd.Data
     data = []
     for timestamp, block in zip(timestamp_df['timestamp'], timestamp_df['block_number']):
         eth_price = eth_price_df[eth_price_df['block_number'] == block]['price'] 
-         # not surew if need int(block)
+
         try:
             pool_data = pool.get_prices(block, eth_price)
             pool_data['timestamp'] = timestamp

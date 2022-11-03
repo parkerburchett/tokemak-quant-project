@@ -22,7 +22,7 @@ class Pool:
         try:
             reserves_0, reserves_1, _ = self.contract.functions.getReserves().call(block_identifier=block_number)
         except requests.HTTPError:
-            time.sleep(1)
+            time.sleep(5)
             reserves_0, reserves_1, _ = self.contract.functions.getReserves().call(block_identifier=block_number)
 
         # except (web3.exceptions.BadFunctionCallOutput, web3.exceptions.BlockNumberOutofRange) as e:
@@ -42,7 +42,6 @@ class Pool:
         """
         Get the prices of the assets in the pool at block number given the price of ETH at this block
         """
-
         eth_price = float(eth_price)
         reserves = self.get_reserves(block_number)
 

@@ -13,11 +13,11 @@ from fetch_dataframes import (build_eth_price_df, build_historical_dfs,
 from fetch_token_details import build_token_df
 
 
-def main(n_days=360):
+def main(addresses: list[str]=pool_addresses, n_days=360):
     # build token_df
     start = datetime.now()
     print('start', start)
-    token_df = build_token_df(pool_addresses)
+    token_df = build_token_df(addresses)
     token_df.to_csv('tokemak_quant_project/data/token_df.csv', index=False)
     print('saved token_df')
 
@@ -43,10 +43,15 @@ def main(n_days=360):
     print('saved price_df')
 
     flat_price_df = price_df.pivot(index='block_number', values='price', columns='token_address')
-    flat_price_df.to_csv('tokemak_quant_project/data/flat_price_df.csv', index=False)
+    flat_price_df.to_csv('tokemak_quant_project/data/flat_price_df.csv')
     print('saved flat_price_df')
     print('time taken', datetime.now() - start)
 
 
 if __name__ == '__main__':
     main()
+
+# I needed to rerun it with these pools again
+# broken_pools = ['0xecBa967D84fCF0405F6b32Bc45F4d36BfDBB2E81', '0x53162D78dCa413d9e28cf62799D17a9E278B60E8']
+# other_dfs = build_historical_dfs(broken_pools, timestamp_df, eth_price_df)
+# other_df = pd.concat(other_dfs)
